@@ -1,4 +1,4 @@
-
+import scala.util.Random
 
 object Driver {
   def main(args: Array[String]) {
@@ -22,10 +22,11 @@ object Driver {
 }
 
 object MastermindStateGenerator {
-  def generate(beads :Int, state: Int) :Tuple2[Int, Array[Int]] = {
-    val tmp: Array[Int] = Array[Int](beads)
+  def generate(beads :Int, colors: Int) :Tuple2[Int, Array[Int]] = {
+    val tmp: Array[Int] = new Array[Int](beads)
+    val rand: Random = new Random
     for (elt <-  0 to beads - 1) {
-      tmp(elt) = 7
+      tmp(elt) = rand.nextInt(colors)
     }
     new Tuple2(0, tmp)
   }
