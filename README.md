@@ -19,3 +19,6 @@ Make a common Strategy trait that can be passed to the simulator
 Have simulating a turn return the result (correct, correct position)
 and the next simulator
 
+##Refactoring Idea
+Have the state, number of beads, and number of colors all be part of an immutable  
+object.
