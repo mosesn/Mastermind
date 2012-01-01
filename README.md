@@ -12,13 +12,12 @@ Moses (mmn2104 on github)
 Matt (dannenberg on github)
 
 ##Progress
-State generation works
+State generation works  
+State is its own case class  
+Common Strategy trait that can be passed to the simulator  
+Simulating a turn returns the result (correct, correct position)
 
 ##Next Steps
-Make a common Strategy trait that can be passed to the simulator  
-Have simulating a turn return the result (correct, correct position)
-and the next simulator
-
-##Refactoring Idea
-Have the state, number of beads, and number of colors all be part of an immutable
-object.
+Keep refactoring--specifically, talk through design decisions, make sure they
+all make sense.  
+Start building out a real strategy class
