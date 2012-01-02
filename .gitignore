@@ -1,4 +1,8 @@
 *~
 \#*\#
 *.class
+*.DS_Store
+*.swap
+*.tmp
+*.bkp
 target
