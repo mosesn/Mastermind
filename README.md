@@ -8,8 +8,8 @@ We are using this project to learn Scala.  If you see something that seems wrong
 to you, please tell us!  We will not be offended, we want to learn.
 
 ##People
-[Moses](mnn2104)
-[Matt](dannenberg)
+[Moses](https://github.com/mnn2104)  
+[Matt](https://github.com/dannenberg)
 
 ##Progress
 State generation works  
