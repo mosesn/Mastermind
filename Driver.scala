@@ -35,6 +35,9 @@ object Driver {
   }
 }
 
+
+
+
 object MastermindStateGenerator {
   def generate(beads: Int, colors: Int): MastermindState = {
     val beadState = new Array[Int](beads)
@@ -49,17 +52,22 @@ object MastermindStateGenerator {
   }
 }
 
+
+
+
 trait MastermindStrategy {
   def getNextMove: Array[Int]
   def observeResult(numColorsCorrect: Int, numPositionsCorrect: Int)
   def continuePlaying: Boolean
 }
 
+
+
+
 class ColorStrategy(beads: Int, colors: Int) extends MastermindStrategy {
   var curColor = -1
   var curCorrect = 0
   val correctColors = Array.fill[Int](beads)(-1)
-
 
   override def getNextMove: Array[Int] = {
     val curGuess = new Array[Int](beads)
@@ -86,6 +94,9 @@ class ColorStrategy(beads: Int, colors: Int) extends MastermindStrategy {
   override def continuePlaying: Boolean = (curCorrect != beads)
 
 }
+
+
+
 
 class BruteForceStrategy(beads: Int, colors: Int) extends MastermindStrategy {
   val curStrat = new Array[Int](beads)
@@ -115,8 +126,14 @@ class BruteForceStrategy(beads: Int, colors: Int) extends MastermindStrategy {
   }
 }
 
+
+
+
 case class MastermindState(beads: Int, colors: Int, beadState: Array[Int],
                            colorState: Array[Int])
+
+
+
 
 class MastermindSimulator(state: MastermindState) {
   var attempts = 0
@@ -147,5 +164,4 @@ class MastermindSimulator(state: MastermindState) {
 
     new Tuple2(numColorsCorrect, numPositionsCorrect)
   }
-
 }
