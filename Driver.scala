@@ -22,7 +22,7 @@ object Driver {
   def runGame(simulator :MastermindSimulator, strat :MastermindStrategy): Int = {
     var colorPosition = new Tuple2(0, 0)
     while ((strat continuePlaying) && (colorPosition._2 < (simulator getState).beads)) {
-      colorPosition = (simulator guess (strat getGuess))
+      colorPosition = (simulator evaluateGuess (strat getNextMove))
     }
     if (colorPosition._2 == (simulator getState).beads) {
       simulator.attempts
@@ -48,20 +48,20 @@ object MastermindStateGenerator {
 }
 
 trait MastermindStrategy {
-  def getGuess: Array[Int]
-  def tellResult(colorsCorrect: Int, positionsCorrect: Int)
+  def getNextMove: Array[Int]
+  def observeResult(colorsCorrect: Int, positionsCorrect: Int)
   def continuePlaying: Boolean
 }
 
 class BruteForceStrategy(beads: Int, colors: Int) extends MastermindStrategy{
   val curStrat = new Array[Int](beads)
 
-  override def getGuess: Array[Int] = {
+  override def getNextMove: Array[Int] = {
     next
     curStrat
   }
 
-  override def tellResult(colorsCorrect: Int, positionsCorrect: Int) = null
+  override def observeResult(colorsCorrect: Int, positionsCorrect: Int) = null
 
   override def continuePlaying = true
 
@@ -95,7 +95,7 @@ class MastermindSimulator(state: MastermindState) {
 
   def getState = state
 
-  def guess(guess: Array[Int]) :Tuple2[Int, Int] = {
+  def evaluateGuess(guess: Array[Int]) :Tuple2[Int, Int] = {
     attempts += 1
     val curColors = new Array[Int](state.colors)
     var color = 0
