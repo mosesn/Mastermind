@@ -6,8 +6,8 @@ object Driver {
       val beads: Int = args(0).toInt
       val colors: Int = args(1).toInt
       if (beads <= 1 && colors <= 1) {
-	println ("Number of beads should be more than one, and number of " +
-		 "colors should be more than one.")
+        println ("Number of beads should be more than one, and number of " +
+                 "colors should be more than one.")
       }
       val sim = new MastermindSimulator(beads, colors)
       println(sim)
@@ -15,7 +15,7 @@ object Driver {
     }
     else {
       println ("Please provide two integer arguments one for the number of " +
-	       "beads and the other for the number of colors.")
+               "beads and the other for the number of colors.")
     }
   }
 
@@ -69,20 +69,20 @@ class BruteForceStrategy(beads: Int, colors: Int) extends MastermindStrategy{
     var continue = true
     for ((value, index) <- (curStrat zipWithIndex) reverse) {
       if (continue) {
-	if (value + 1 == colors) {
-	  curStrat(index) = 0
-	}
-	else {
-	  curStrat(index) += 1
-	  continue = false
-	}
+        if (value + 1 == colors) {
+          curStrat(index) = 0
+        }
+        else {
+          curStrat(index) += 1
+          continue = false
+        }
       }
     }
   }
 }
 
 case class MastermindState(beads: Int, colors: Int, beadState: Array[Int],
-			   colorState: Array[Int])
+                           colorState: Array[Int])
 
 class MastermindSimulator(state: MastermindState) {
   var attempts = 0
@@ -104,10 +104,10 @@ class MastermindSimulator(state: MastermindState) {
     for ((value, index) <- guess zipWithIndex) {
       curColors(value) += 1
       if (state.beadState(index) == value) {
-	position += 1
+        position += 1
       }
       else if (curColors(value) > state.colorState(value)) {
-	color += 1
+        color += 1
       }
     }
 
