@@ -51,7 +51,7 @@ object MastermindStateGenerator {
 
 trait MastermindStrategy {
   def getNextMove: Array[Int]
-  def observeResult(colorsCorrect: Int, positionsCorrect: Int)
+  def observeResult(numColorsCorrect: Int, numPositionsCorrect: Int)
   def continuePlaying: Boolean
 }
 
@@ -76,11 +76,11 @@ class ColorStrategy(beads: Int, colors: Int) extends MastermindStrategy {
     curGuess
   }
 
-  override def observeResult(colorsCorrect: Int, positionsCorrect: Int) = {
-    for (index <- curCorrect to (colorsCorrect - 1)) {
+  override def observeResult(numColorsCorrect: Int, numPositionsCorrect: Int) = {
+    for (index <- curCorrect to (numColorsCorrect - 1)) {
       correctColors(index) = curColor
     }
-    curCorrect = colorsCorrect
+    curCorrect = numColorsCorrect
   }
 
   override def continuePlaying: Boolean = (curCorrect != beads)
@@ -95,7 +95,7 @@ class BruteForceStrategy(beads: Int, colors: Int) extends MastermindStrategy {
     curStrat
   }
 
-  override def observeResult(colorsCorrect: Int, positionsCorrect: Int) = null
+  override def observeResult(numColorsCorrect: Int, numPositionsCorrect: Int) = null
 
   override def continuePlaying = true
 
@@ -131,21 +131,21 @@ class MastermindSimulator(state: MastermindState) {
 
   def evaluateGuess(guess: Array[Int]) :Tuple2[Int, Int] = {
     attempts += 1
-    val curColors = new Array[Int](state.colors)
-    var color = 0
-    var position = 0
+    val colorsSeen = new Array[Int](state.colors)
+    var numColorsCorrect = 0
+    var numPositionsCorrect = 0
 
     for ((value, index) <- guess zipWithIndex) {
-      curColors(value) += 1
+      colorsSeen(value) += 1
       if (state.beadState(index) == value) {
-        position += 1
+        numPositionsCorrect += 1
       }
-      if (curColors(value) <= state.colorState(value)) {
-        color += 1
+      if (colorsSeen(value) <= state.colorState(value)) {
+        numColorsCorrect += 1
       }
     }
 
-    new Tuple2(color, position)
+    new Tuple2(numColorsCorrect, numPositionsCorrect)
   }
 
 }
