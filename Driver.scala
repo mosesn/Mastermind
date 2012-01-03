@@ -11,7 +11,7 @@ object Driver {
       }
       val sim = new MastermindSimulator(beads, colors)
       println(sim)
-      println(runGame(sim, new BruteForceStrategy(beads, colors)))
+      println(runGame(sim, new ColorStrategy(beads, colors)))
     }
     else {
       println ("Please provide two integer arguments one for the number of " +
@@ -23,11 +23,13 @@ object Driver {
     var colorPosition = new Tuple2(0, 0)
     while ((strat continuePlaying) && (colorPosition._2 < (simulator getState).beads)) {
       colorPosition = (simulator evaluateGuess (strat getNextMove))
+      strat observeResult (colorPosition._1, colorPosition._2)
     }
     if (colorPosition._2 == (simulator getState).beads) {
       simulator.attempts
     }
     else {
+      println(simulator.attempts)
       -1
     }
   }
@@ -53,7 +55,39 @@ trait MastermindStrategy {
   def continuePlaying: Boolean
 }
 
-class BruteForceStrategy(beads: Int, colors: Int) extends MastermindStrategy{
+class ColorStrategy(beads: Int, colors: Int) extends MastermindStrategy {
+  var curColor = -1
+  var curCorrect = 0
+  val correctColors = Array.fill[Int](beads)(-1)
+
+
+  override def getNextMove: Array[Int] = {
+    val curGuess = new Array[Int](beads)
+
+    curColor += 1
+    for ((value, index) <- correctColors.zipWithIndex) {
+      if (value != -1) {
+        curGuess(index) = value
+      }
+      else {
+        curGuess(index) = curColor
+      }
+    }
+    curGuess
+  }
+
+  override def observeResult(colorsCorrect: Int, positionsCorrect: Int) = {
+    for (index <- curCorrect to (colorsCorrect - 1)) {
+      correctColors(index) = curColor
+    }
+    curCorrect = colorsCorrect
+  }
+
+  override def continuePlaying: Boolean = (curCorrect != beads)
+
+}
+
+class BruteForceStrategy(beads: Int, colors: Int) extends MastermindStrategy {
   val curStrat = new Array[Int](beads)
 
   override def getNextMove: Array[Int] = {
@@ -106,7 +140,7 @@ class MastermindSimulator(state: MastermindState) {
       if (state.beadState(index) == value) {
         position += 1
       }
-      else if (curColors(value) > state.colorState(value)) {
+      if (curColors(value) <= state.colorState(value)) {
         color += 1
       }
     }
