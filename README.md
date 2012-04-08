@@ -20,3 +20,7 @@ Talked through design decisions, made small changes all make sense.
 
 ##Next Steps
 Start building out a real strategy class
+Turn the Driver into a test with ScalaTest
+
+##Ideas for a nice Strategy Class
+Try a logic-based system

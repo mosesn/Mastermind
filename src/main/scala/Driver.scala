@@ -11,7 +11,7 @@ object Driver {
       }
       val sim = new MastermindSimulator(beads, colors)
       println(sim)
-      println(runGame(sim, new ColorStrategy(beads, colors)))
+      println(runGame(sim, new BruteForceStrategy(beads, colors)))
     }
     else {
       println ("Please provide two integer arguments one for the number of " +
