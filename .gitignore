@@ -6,3 +6,8 @@
 *.tmp
 *.bkp
 target
+.ensime
+.cache
+.project
+.settings
+.classpath

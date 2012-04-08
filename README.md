@@ -16,8 +16,7 @@ State generation works
 State is its own case class  
 Common Strategy trait that can be passed to the simulator  
 Simulating a turn returns the result (correct, correct position)
+Talked through design decisions, made small changes all make sense.
 
 ##Next Steps
-Keep refactoring--specifically, talk through design decisions, make sure they
-all make sense.  
 Start building out a real strategy class
